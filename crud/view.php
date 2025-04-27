@@ -1,6 +1,9 @@
 <?php
 include_once "../shared/head.php";
-include_once "../config/connect.php";
+include_once "../shared/header.php";
+include_once "../core/connect.php";
+
+auth(3,4);
 
 $select = "SELECT * FROM `jewellery-collection`";
 $data = mysqli_query($connect, $select);
@@ -17,12 +20,24 @@ if(isset($_GET['del'])){
     $del = "DELETE FROM `jewellery-collection` WHERE id = $id";
     mysqli_query($connect, $del);
 
-    header("location:/yasmin/projects/jewelleries/crud/view.php");
+    $_SESSION['validMessage'] = "Delete This Product Successfully";
+
+    redirect('crud/view.php');
 }
 ?>
 <div class="bg-body">
     <div class="container col-10">
         <div class="card-edit">
+            <?php if(isset($_SESSION['validMessage'])): ?>
+                <div id="alert_message" class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>Message!</strong>
+                    <?=$_SESSION['validMessage'] ?>
+                    <form action="<?=url('core/functions.php')?>" method="POST">
+                        <input type="hidden" name="old_path" value="<?=$current_url?>">
+                        <button type="submit" name="delete_message" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </form>
+                </div>
+            <?php endif ?>
             <crad-title>
                 <h3>Jewelleries</h3>
             </crad-title>

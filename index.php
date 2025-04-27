@@ -1,9 +1,13 @@
 <?php
-include_once "./config/connect.php";
+include_once "./core/connect.php";
 include_once "./shared/head.php";
+include_once "./shared/header.php";
+
+auth(2,3,4,5);
 
 $select = "SELECT * FROM `jewellery-collection`";
 $data = mysqli_query($connect, $select);
+
 ?>
 
 <div class="container boxes mt-5">
